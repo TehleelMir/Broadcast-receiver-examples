@@ -44,35 +44,23 @@ class MainActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.textView)
             .setOnClickListener {
                 /*
-                    We can also send the below action from another app if we want,
-                    and as long as our broad cast is listing, it will get trigger in the same way
-                    the below code trigger the broad cast receiver.
-                    Even we have to use the same 3 lines in other app as well.
+                    First we could define these action statically in the manifest file in that way
+                    if our app was not running it used to still receive the events from from android O
+                    that's not the use. Now we have to define implicit broadcast dynamically other wise they
+                    won't work.
 
-                    We can also use local broad cast receiver, in that way our app will be only
-                    one which will receive the broad events no matter if the other app are also listing.
-                    By this way we can increase the security of our app
+                    Below is the example of explicit broad cast receiver where we define directly what
+                    broad cast to was to trigger and like implicit broad cast it can get triggered even if the
+                    app is not in the background and also if any second app tried to call this broad cast directly it will
+                    still start if the app was not running in the background. we have to also add it in the manifest file
 
-                    watch below video if your not getting it
-                    https://www.youtube.com/watch?v=qNocH6Angt0&list=PLrnPJCHvNZuBhmqlWEQfvxbNtY6B_XJ3n&index=7
+                    see below video for more info:
+                    https://youtu.be/a8DaHJLHBfI?list=PLrnPJCHvNZuBhmqlWEQfvxbNtY6B_XJ3n
                  */
-                val intent = Intent("com.example.projectname_OUR_ACTION")
-                intent.putExtra("key", "hello mf")
+
+                val intent = Intent(this, ExampleBroadcastReceiver2::class.java)
                 sendBroadcast(intent)
             }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        val intentFilter = IntentFilter()
-        intentFilter.addAction("com.example.projectname_OUR_ACTION")
-        // can add more then one like we do in the manifest file
-        registerReceiver(exampleBroadcastReceiver, intentFilter)
-    }
-
-    override fun onStop() {
-        super.onStop()
-        unregisterReceiver(exampleBroadcastReceiver)
     }
 }
 
