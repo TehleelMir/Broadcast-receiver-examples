@@ -45,6 +45,14 @@ class ExampleBroadcastReceiver: BroadcastReceiver() {
         if(ConnectivityManager.CONNECTIVITY_ACTION == intent?.action) {
             Toast.makeText(context, "Connectivity changed", Toast.LENGTH_LONG).show()
         }
+
+        /*
+            In real life app, we should use constants instead of directly hard coding the string.
+         */
+        if("com.example.projectname_OUR_ACTION" == intent?.action) {
+            val str = intent.extras?.getString("key") ?: ""
+            Toast.makeText(context, "From our custom action_____ $str", Toast.LENGTH_LONG).show()
+        }
     }
 }
 
