@@ -1,5 +1,7 @@
 package com.example.broadcastreceiver
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
@@ -22,8 +24,61 @@ import android.os.Bundle
  */
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var exampleBroadcastReceiver: ExampleBroadcastReceiver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        init()
+    }
+
+    private fun init() {
+        exampleBroadcastReceiver = ExampleBroadcastReceiver()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val intentFilter = IntentFilter()
+        intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION)
+        // can add more then one like we do in the manifest file
+        registerReceiver(exampleBroadcastReceiver, intentFilter)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        unregisterReceiver(exampleBroadcastReceiver)
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
