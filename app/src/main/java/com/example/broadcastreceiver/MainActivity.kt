@@ -59,6 +59,17 @@ class MainActivity : AppCompatActivity() {
                  */
 
                 val intent = Intent(this, ExampleBroadcastReceiver2::class.java)
+
+                /*
+                    When ever we want to send a broad cast we use the
+                    sendBroadcast() method, which is good, but it will send broadcast to all the
+                    listeners in an unordered manner. But we want to configure this order we can use
+                    sendOrderBroadcast(), where each broad cast is sent Sequential order, and we can also define the order ourself as well. And we can also
+                    update the data which is going to be send from one broad cast to another and we can even aboard the next broad cast.
+
+                    https://youtu.be/Eyuez4D-qLg?list=PLrnPJCHvNZuBhmqlWEQfvxbNtY6B_XJ3n
+                 */
+
                 sendBroadcast(intent)
             }
     }
